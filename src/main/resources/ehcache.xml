@@ -40,5 +40,7 @@
 
     <cache alias="io.nbe.test.domain.ContactRequest" uses-template="simple"/>
 
+    <cache alias="io.nbe.test.domain.Directory" uses-template="simple"/>
+
     <!-- jhipster-needle-ehcache-add-entry -->
 </config>

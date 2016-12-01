@@ -1,0 +1,23 @@
+{
+    "testJhApp": {
+        "directory" : {
+            "home": {
+                "title": "Directories",
+                "createLabel": "Create a new Directory",
+                "createOrEditLabel": "Create or edit a Directory",
+                "search": "Search for Directory"
+            },
+            "created": "A new Directory is created with identifier {{ param }}",
+            "updated": "A Directory is updated with identifier {{ param }}",
+            "deleted": "A Directory is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Directory {{ id }}?"
+            },
+            "detail": {
+                "title": "Directory"
+            },
+            "name": "Name",
+            "link": "Link"
+        }
+    }
+}

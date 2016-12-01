@@ -22,6 +22,11 @@ entity Message {
     data String
 }
 
+entity Directory {
+    name String,
+    link String
+}
+
 relationship ManyToMany {
 	Conversation{members} to ExtandedUser{messages}
 }

@@ -11,6 +11,7 @@
                 "conversation": "Conversation",
                 "message": "Message",
                 "contactRequest": "Contact Request",
+                "directory": "Directory",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

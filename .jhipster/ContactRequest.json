@@ -1,0 +1,40 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "receiver",
+            "otherEntityName": "extandedUser",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "sender",
+            "otherEntityName": "extandedUser",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "isAccepted",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "dateAccepted",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "dateAsked",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "message",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20161201234606",
+    "entityTableName": "contact_request",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass"
+}
