@@ -22,5 +22,17 @@
 
     <cache alias="io.nbe.test.social.SocialUserConnection" uses-template="simple"/>
 
+    <cache alias="io.nbe.test.domain.ExtandedUser" uses-template="simple"/>
+
+    <cache alias="io.nbe.test.domain.ExtandedUser.messages" uses-template="simple"/>
+
+    <cache alias="io.nbe.test.domain.Conversation" uses-template="simple"/>
+
+    <cache alias="io.nbe.test.domain.Conversation.messages" uses-template="simple"/>
+
+    <cache alias="io.nbe.test.domain.Conversation.members" uses-template="simple"/>
+
+    <cache alias="io.nbe.test.domain.Message" uses-template="simple"/>
+
     <!-- jhipster-needle-ehcache-add-entry -->
 </config>

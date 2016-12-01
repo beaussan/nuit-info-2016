@@ -1,0 +1,70 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myMessageLabel" data-translate="testJhApp.message.home.createOrEditLabel">Create or edit a Message</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.message.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.message.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="testJhApp.message.isRead" for="field_isRead">Is Read</label>
+            <input type="checkbox" class="form-control" name="isRead" id="field_isRead"
+                    ng-model="vm.message.isRead"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="testJhApp.message.dateWriten" for="field_dateWriten">Date Writen</label>
+                <div class="input-group">
+                    <input id="field_dateWriten" type="text" class="form-control" name="dateWriten" datetime-picker="{{dateformat}}" ng-model="vm.message.dateWriten" is-open="vm.datePickerOpenStatus.dateWriten"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dateWriten')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="testJhApp.message.dateSeen" for="field_dateSeen">Date Seen</label>
+                <div class="input-group">
+                    <input id="field_dateSeen" type="text" class="form-control" name="dateSeen" datetime-picker="{{dateformat}}" ng-model="vm.message.dateSeen" is-open="vm.datePickerOpenStatus.dateSeen"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dateSeen')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="testJhApp.message.data" for="field_data">Data</label>
+            <input type="text" class="form-control" name="data" id="field_data"
+                    ng-model="vm.message.data"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label data-translate="testJhApp.message.source" for="field_source">Source</label>
+            <select class="form-control" id="field_source" name="source" ng-model="vm.message.source" ng-options="extandedUser as extandedUser.id for extandedUser in vm.sources | orderBy:'id' track by extandedUser.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-translate="testJhApp.message.conversation" for="field_conversation">Conversation</label>
+            <select class="form-control" id="field_conversation" name="conversation" ng-model="vm.message.conversation" ng-options="conversation as conversation.id for conversation in vm.conversations track by conversation.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

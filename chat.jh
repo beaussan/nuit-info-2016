@@ -1,0 +1,46 @@
+
+
+entity ExtandedUser {
+
+}
+
+
+entity Conversation {
+
+}
+
+
+
+entity Message {
+	isRead Boolean,
+    dateWriten ZonedDateTime,
+    dateSeen ZonedDateTime,
+    data String
+}
+
+relationship ManyToMany {
+	Conversation{members} to ExtandedUser{messages}
+}
+
+relationship OneToMany {
+	Conversation{messages} to Message{conversation}
+}
+
+
+relationship OneToOne {
+	Message{source} to ExtandedUser
+}
+
+
+relationship OneToOne {
+    ExtandedUser{user(login)} to User
+}
+
+
+paginate all with pagination
+
+service all with serviceClass
+
+
+
+

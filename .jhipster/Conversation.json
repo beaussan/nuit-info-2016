@@ -1,0 +1,25 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "messages",
+            "otherEntityName": "message",
+            "otherEntityRelationshipName": "conversation"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "messages",
+            "relationshipName": "members",
+            "otherEntityName": "extandedUser",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20161201190921",
+    "entityTableName": "conversation",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass"
+}

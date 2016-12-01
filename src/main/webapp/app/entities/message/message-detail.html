@@ -1,0 +1,43 @@
+
+<div>
+    <h2><span data-translate="testJhApp.message.detail.title">Message</span> {{vm.message.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="testJhApp.message.isRead">Is Read</span></dt>
+        <dd>
+            <span>{{vm.message.isRead}}</span>
+        </dd>
+        <dt><span data-translate="testJhApp.message.dateWriten">Date Writen</span></dt>
+        <dd>
+            <span>{{vm.message.dateWriten | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="testJhApp.message.dateSeen">Date Seen</span></dt>
+        <dd>
+            <span>{{vm.message.dateSeen | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="testJhApp.message.data">Data</span></dt>
+        <dd>
+            <span>{{vm.message.data}}</span>
+        </dd>
+        <dt><span data-translate="testJhApp.message.source">Source</span></dt>
+        <dd>
+            <a ui-sref="extanded-user-detail({id:vm.message.source.id})">{{vm.message.source.id}}</a>
+        </dd>
+        <dt><span data-translate="testJhApp.message.conversation">Conversation</span></dt>
+        <dd>
+            <a ui-sref="conversation-detail({id:vm.message.conversation.id})">{{vm.message.conversation.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="message-detail.edit({id:vm.message.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

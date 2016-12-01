@@ -1,0 +1,23 @@
+{
+    "testJhApp": {
+        "extandedUser" : {
+            "home": {
+                "title": "Extanded Users",
+                "createLabel": "Create a new Extanded User",
+                "createOrEditLabel": "Create or edit a Extanded User",
+                "search": "Search for Extanded User"
+            },
+            "created": "A new Extanded User is created with identifier {{ param }}",
+            "updated": "A Extanded User is updated with identifier {{ param }}",
+            "deleted": "A Extanded User is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Extanded User {{ id }}?"
+            },
+            "detail": {
+                "title": "Extanded User"
+            },
+            "user": "User",
+            "messages": "Messages"
+        }
+    }
+}
