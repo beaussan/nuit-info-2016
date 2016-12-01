@@ -5,15 +5,18 @@
         .module('testJhApp')
         .controller('ExtandedUserDialogController', ExtandedUserDialogController);
 
-    ExtandedUserDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'ExtandedUser', 'User', 'Conversation'];
+    ExtandedUserDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'ExtandedUser', 'User', 'ContactRequest', 'Conversation'];
 
-    function ExtandedUserDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, ExtandedUser, User, Conversation) {
+    function ExtandedUserDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, ExtandedUser, User, ContactRequest, Conversation) {
         var vm = this;
 
         vm.extandedUser = entity;
         vm.clear = clear;
+        vm.datePickerOpenStatus = {};
+        vm.openCalendar = openCalendar;
         vm.save = save;
         vm.users = User.query();
+        vm.contactrequests = ContactRequest.query();
         vm.conversations = Conversation.query();
 
         $timeout(function (){
@@ -43,6 +46,10 @@
             vm.isSaving = false;
         }
 
+        vm.datePickerOpenStatus.lastConnection = false;
 
+        function openCalendar (date) {
+            vm.datePickerOpenStatus[date] = true;
+        }
     }
 })();

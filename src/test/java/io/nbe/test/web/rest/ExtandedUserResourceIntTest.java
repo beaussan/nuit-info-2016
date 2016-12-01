@@ -23,8 +23,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.List;
 
+import static io.nbe.test.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -38,6 +43,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TestJhApp.class)
 public class ExtandedUserResourceIntTest {
+
+    private static final ZonedDateTime DEFAULT_LAST_CONNECTION = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_LAST_CONNECTION = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     @Inject
     private ExtandedUserRepository extandedUserRepository;
@@ -78,7 +86,8 @@ public class ExtandedUserResourceIntTest {
      * if they test an entity which requires the current entity.
      */
     public static ExtandedUser createEntity(EntityManager em) {
-        ExtandedUser extandedUser = new ExtandedUser();
+        ExtandedUser extandedUser = new ExtandedUser()
+                .lastConnection(DEFAULT_LAST_CONNECTION);
         return extandedUser;
     }
 
@@ -104,6 +113,7 @@ public class ExtandedUserResourceIntTest {
         List<ExtandedUser> extandedUsers = extandedUserRepository.findAll();
         assertThat(extandedUsers).hasSize(databaseSizeBeforeCreate + 1);
         ExtandedUser testExtandedUser = extandedUsers.get(extandedUsers.size() - 1);
+        assertThat(testExtandedUser.getLastConnection()).isEqualTo(DEFAULT_LAST_CONNECTION);
 
         // Validate the ExtandedUser in ElasticSearch
         ExtandedUser extandedUserEs = extandedUserSearchRepository.findOne(testExtandedUser.getId());
@@ -120,7 +130,8 @@ public class ExtandedUserResourceIntTest {
         restExtandedUserMockMvc.perform(get("/api/extanded-users?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(extandedUser.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(extandedUser.getId().intValue())))
+            .andExpect(jsonPath("$.[*].lastConnection").value(hasItem(sameInstant(DEFAULT_LAST_CONNECTION))));
     }
 
     @Test
@@ -133,7 +144,8 @@ public class ExtandedUserResourceIntTest {
         restExtandedUserMockMvc.perform(get("/api/extanded-users/{id}", extandedUser.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(extandedUser.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(extandedUser.getId().intValue()))
+            .andExpect(jsonPath("$.lastConnection").value(sameInstant(DEFAULT_LAST_CONNECTION)));
     }
 
     @Test
@@ -154,6 +166,8 @@ public class ExtandedUserResourceIntTest {
 
         // Update the extandedUser
         ExtandedUser updatedExtandedUser = extandedUserRepository.findOne(extandedUser.getId());
+        updatedExtandedUser
+                .lastConnection(UPDATED_LAST_CONNECTION);
 
         restExtandedUserMockMvc.perform(put("/api/extanded-users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -164,6 +178,7 @@ public class ExtandedUserResourceIntTest {
         List<ExtandedUser> extandedUsers = extandedUserRepository.findAll();
         assertThat(extandedUsers).hasSize(databaseSizeBeforeUpdate);
         ExtandedUser testExtandedUser = extandedUsers.get(extandedUsers.size() - 1);
+        assertThat(testExtandedUser.getLastConnection()).isEqualTo(UPDATED_LAST_CONNECTION);
 
         // Validate the ExtandedUser in ElasticSearch
         ExtandedUser extandedUserEs = extandedUserSearchRepository.findOne(testExtandedUser.getId());
@@ -202,6 +217,7 @@ public class ExtandedUserResourceIntTest {
         restExtandedUserMockMvc.perform(get("/api/_search/extanded-users?query=id:" + extandedUser.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(extandedUser.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(extandedUser.getId().intValue())))
+            .andExpect(jsonPath("$.[*].lastConnection").value(hasItem(sameInstant(DEFAULT_LAST_CONNECTION))));
     }
 }

@@ -1,7 +1,5 @@
-
-
 entity ExtandedUser {
-
+	lastConnection ZonedDateTime
 }
 
 
@@ -9,6 +7,12 @@ entity Conversation {
 
 }
 
+ entity ContactRequest {
+ 	isAccepted Boolean,
+    dateAccepted ZonedDateTime,
+	dateAsked ZonedDateTime,
+    message String
+ }
 
 
 entity Message {
@@ -36,11 +40,18 @@ relationship OneToOne {
     ExtandedUser{user(login)} to User
 }
 
+relationship OneToMany {
+	ExtandedUser{friendRequests} to ContactRequest{sender}
+}
+
+relationship ManyToOne {
+	ContactRequest{receiver} to ExtandedUser{friendRequestReceived}
+}
+
 
 paginate all with pagination
 
 service all with serviceClass
-
 
 
 

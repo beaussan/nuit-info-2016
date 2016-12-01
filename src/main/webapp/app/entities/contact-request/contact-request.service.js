@@ -2,12 +2,12 @@
     'use strict';
     angular
         .module('testJhApp')
-        .factory('ExtandedUser', ExtandedUser);
+        .factory('ContactRequest', ContactRequest);
 
-    ExtandedUser.$inject = ['$resource', 'DateUtils'];
+    ContactRequest.$inject = ['$resource', 'DateUtils'];
 
-    function ExtandedUser ($resource, DateUtils) {
-        var resourceUrl =  'api/extanded-users/:id';
+    function ContactRequest ($resource, DateUtils) {
+        var resourceUrl =  'api/contact-requests/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
@@ -16,7 +16,8 @@
                 transformResponse: function (data) {
                     if (data) {
                         data = angular.fromJson(data);
-                        data.lastConnection = DateUtils.convertDateTimeFromServer(data.lastConnection);
+                        data.dateAccepted = DateUtils.convertDateTimeFromServer(data.dateAccepted);
+                        data.dateAsked = DateUtils.convertDateTimeFromServer(data.dateAsked);
                     }
                     return data;
                 }

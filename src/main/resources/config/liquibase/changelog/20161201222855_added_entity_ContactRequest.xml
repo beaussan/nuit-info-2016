@@ -14,22 +14,41 @@
     <property name="floatType" value="float" dbms="mysql, oracle"/>
 
     <!--
-        Added the entity ExtandedUser.
+        Added the entity ContactRequest.
     -->
-    <changeSet id="20161201190920-1" author="jhipster">
-        <createTable tableName="extanded_user">
+    <changeSet id="20161201222855-1" author="jhipster">
+        <createTable tableName="contact_request">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="last_connection" type="timestamp">
+            <column name="is_accepted" type="bit">
                 <constraints nullable="true" />
             </column>
-                        <column name="user_id" type="bigint">
-                <constraints unique="true" nullable="true" />
+            
+            <column name="date_accepted" type="timestamp">
+                <constraints nullable="true" />
             </column>
+            
+            <column name="date_asked" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="message" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="receiver_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="sender_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="extanded_user" columnName="last_connection" columnDataType="datetime"/>
+        <dropDefaultValue tableName="contact_request" columnName="date_accepted" columnDataType="datetime"/>
+        <dropDefaultValue tableName="contact_request" columnName="date_asked" columnDataType="datetime"/>
         
     </changeSet>
 </databaseChangeLog>

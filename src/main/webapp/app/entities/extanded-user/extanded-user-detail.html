@@ -4,6 +4,10 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="testJhApp.extandedUser.lastConnection">Last Connection</span></dt>
+        <dd>
+            <span>{{vm.extandedUser.lastConnection | date:'medium'}}</span>
+        </dd>
         <dt><span data-translate="testJhApp.extandedUser.user">User</span></dt>
         <dd>
             {{vm.extandedUser.user.login}}

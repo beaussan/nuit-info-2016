@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory
 import scala.concurrent.duration._
 
 /**
- * Performance test for the ExtandedUser entity.
+ * Performance test for the ContactRequest entity.
  */
-class ExtandedUserGatlingTest extends Simulation {
+class ContactRequestGatlingTest extends Simulation {
 
     val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
     // Log all HTTP requests
@@ -37,7 +37,7 @@ class ExtandedUserGatlingTest extends Simulation {
         "X-XSRF-TOKEN" -> "${xsrf_token}"
     )
 
-    val scn = scenario("Test the ExtandedUser entity")
+    val scn = scenario("Test the ContactRequest entity")
         .exec(http("First unauthenticated request")
         .get("/api/account")
         .headers(headers_http)
@@ -59,26 +59,26 @@ class ExtandedUserGatlingTest extends Simulation {
         .check(status.is(200)))
         .pause(10)
         .repeat(2) {
-            exec(http("Get all extandedUsers")
-            .get("/api/extanded-users")
+            exec(http("Get all contactRequests")
+            .get("/api/contact-requests")
             .headers(headers_http_authenticated)
             .check(status.is(200)))
             .pause(10 seconds, 20 seconds)
-            .exec(http("Create new extandedUser")
-            .post("/api/extanded-users")
+            .exec(http("Create new contactRequest")
+            .post("/api/contact-requests")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "lastConnection":"2020-01-01T00:00:00.000Z"}""")).asJSON
+            .body(StringBody("""{"id":null, "isAccepted":null, "dateAccepted":"2020-01-01T00:00:00.000Z", "dateAsked":"2020-01-01T00:00:00.000Z", "message":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
-            .check(headerRegex("Location", "(.*)").saveAs("new_extandedUser_url"))).exitHereIfFailed
+            .check(headerRegex("Location", "(.*)").saveAs("new_contactRequest_url"))).exitHereIfFailed
             .pause(10)
             .repeat(5) {
-                exec(http("Get created extandedUser")
-                .get("${new_extandedUser_url}")
+                exec(http("Get created contactRequest")
+                .get("${new_contactRequest_url}")
                 .headers(headers_http_authenticated))
                 .pause(10)
             }
-            .exec(http("Delete created extandedUser")
-            .delete("${new_extandedUser_url}")
+            .exec(http("Delete created contactRequest")
+            .delete("${new_contactRequest_url}")
             .headers(headers_http_authenticated))
             .pause(10)
         }

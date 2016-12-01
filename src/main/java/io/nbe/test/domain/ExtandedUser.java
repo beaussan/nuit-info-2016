@@ -7,6 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -26,9 +27,22 @@ public class ExtandedUser implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "last_connection")
+    private ZonedDateTime lastConnection;
+
     @OneToOne
     @JoinColumn(unique = true)
     private User user;
+
+    @OneToMany(mappedBy = "sender")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<ContactRequest> friendRequests = new HashSet<>();
+
+    @OneToMany(mappedBy = "receiver")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<ContactRequest> friendRequestReceiveds = new HashSet<>();
 
     @ManyToMany(mappedBy = "members")
     @JsonIgnore
@@ -43,6 +57,19 @@ public class ExtandedUser implements Serializable {
         this.id = id;
     }
 
+    public ZonedDateTime getLastConnection() {
+        return lastConnection;
+    }
+
+    public ExtandedUser lastConnection(ZonedDateTime lastConnection) {
+        this.lastConnection = lastConnection;
+        return this;
+    }
+
+    public void setLastConnection(ZonedDateTime lastConnection) {
+        this.lastConnection = lastConnection;
+    }
+
     public User getUser() {
         return user;
     }
@@ -54,6 +81,56 @@ public class ExtandedUser implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<ContactRequest> getFriendRequests() {
+        return friendRequests;
+    }
+
+    public ExtandedUser friendRequests(Set<ContactRequest> contactRequests) {
+        this.friendRequests = contactRequests;
+        return this;
+    }
+
+    public ExtandedUser addFriendRequests(ContactRequest contactRequest) {
+        friendRequests.add(contactRequest);
+        contactRequest.setSender(this);
+        return this;
+    }
+
+    public ExtandedUser removeFriendRequests(ContactRequest contactRequest) {
+        friendRequests.remove(contactRequest);
+        contactRequest.setSender(null);
+        return this;
+    }
+
+    public void setFriendRequests(Set<ContactRequest> contactRequests) {
+        this.friendRequests = contactRequests;
+    }
+
+    public Set<ContactRequest> getFriendRequestReceiveds() {
+        return friendRequestReceiveds;
+    }
+
+    public ExtandedUser friendRequestReceiveds(Set<ContactRequest> contactRequests) {
+        this.friendRequestReceiveds = contactRequests;
+        return this;
+    }
+
+    public ExtandedUser addFriendRequestReceived(ContactRequest contactRequest) {
+        friendRequestReceiveds.add(contactRequest);
+        contactRequest.setReceiver(this);
+        return this;
+    }
+
+    public ExtandedUser removeFriendRequestReceived(ContactRequest contactRequest) {
+        friendRequestReceiveds.remove(contactRequest);
+        contactRequest.setReceiver(null);
+        return this;
+    }
+
+    public void setFriendRequestReceiveds(Set<ContactRequest> contactRequests) {
+        this.friendRequestReceiveds = contactRequests;
     }
 
     public Set<Conversation> getMessages() {
@@ -105,6 +182,7 @@ public class ExtandedUser implements Serializable {
     public String toString() {
         return "ExtandedUser{" +
             "id=" + id +
+            ", lastConnection='" + lastConnection + "'" +
             '}';
     }
 }

@@ -1,0 +1,27 @@
+{
+    "testJhApp": {
+        "contactRequest" : {
+            "home": {
+                "title": "Contact Requests",
+                "createLabel": "Create a new Contact Request",
+                "createOrEditLabel": "Create or edit a Contact Request",
+                "search": "Search for Contact Request"
+            },
+            "created": "A new Contact Request is created with identifier {{ param }}",
+            "updated": "A Contact Request is updated with identifier {{ param }}",
+            "deleted": "A Contact Request is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Contact Request {{ id }}?"
+            },
+            "detail": {
+                "title": "Contact Request"
+            },
+            "isAccepted": "Is Accepted",
+            "dateAccepted": "Date Accepted",
+            "dateAsked": "Date Asked",
+            "message": "Message",
+            "receiver": "Receiver",
+            "sender": "Sender"
+        }
+    }
+}

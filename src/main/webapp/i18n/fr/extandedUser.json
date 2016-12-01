@@ -16,7 +16,10 @@
             "detail": {
                 "title": "Extanded User"
             },
+            "lastConnection": "Last Connection",
             "user": "User",
+            "friendRequests": "Friend Requests",
+            "friendRequestReceived": "Friend Request Received",
             "messages": "Messages"
         }
     }

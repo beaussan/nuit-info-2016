@@ -2,9 +2,9 @@
 
 describe('Controller Tests', function() {
 
-    describe('ExtandedUser Management Detail Controller', function() {
+    describe('ContactRequest Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockPreviousState, MockExtandedUser, MockUser, MockContactRequest, MockConversation;
+        var MockEntity, MockPreviousState, MockContactRequest, MockExtandedUser;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -12,10 +12,8 @@ describe('Controller Tests', function() {
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
             MockPreviousState = jasmine.createSpy('MockPreviousState');
-            MockExtandedUser = jasmine.createSpy('MockExtandedUser');
-            MockUser = jasmine.createSpy('MockUser');
             MockContactRequest = jasmine.createSpy('MockContactRequest');
-            MockConversation = jasmine.createSpy('MockConversation');
+            MockExtandedUser = jasmine.createSpy('MockExtandedUser');
             
 
             var locals = {
@@ -23,20 +21,18 @@ describe('Controller Tests', function() {
                 '$rootScope': $rootScope,
                 'entity': MockEntity,
                 'previousState': MockPreviousState,
-                'ExtandedUser': MockExtandedUser,
-                'User': MockUser,
                 'ContactRequest': MockContactRequest,
-                'Conversation': MockConversation
+                'ExtandedUser': MockExtandedUser
             };
             createController = function() {
-                $injector.get('$controller')("ExtandedUserDetailController", locals);
+                $injector.get('$controller')("ContactRequestDetailController", locals);
             };
         }));
 
 
         describe('Root Scope Listening', function() {
             it('Unregisters root scope listener upon scope destruction', function() {
-                var eventType = 'testJhApp:extandedUserUpdate';
+                var eventType = 'testJhApp:contactRequestUpdate';
 
                 createController();
                 expect($rootScope.$$listenerCount[eventType]).toEqual(1);

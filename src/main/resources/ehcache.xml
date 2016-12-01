@@ -34,5 +34,11 @@
 
     <cache alias="io.nbe.test.domain.Message" uses-template="simple"/>
 
+    <cache alias="io.nbe.test.domain.ExtandedUser.friendRequests" uses-template="simple"/>
+
+    <cache alias="io.nbe.test.domain.ExtandedUser.friendRequestReceiveds" uses-template="simple"/>
+
+    <cache alias="io.nbe.test.domain.ContactRequest" uses-template="simple"/>
+
     <!-- jhipster-needle-ehcache-add-entry -->
 </config>

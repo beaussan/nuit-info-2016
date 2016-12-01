@@ -1,20 +1,20 @@
 <div>
-    <h2 data-translate="testJhApp.extandedUser.home.title">Extanded Users</h2>
+    <h2 data-translate="testJhApp.contactRequest.home.title">Contact Requests</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="extanded-user.new" >
+                <button class="btn btn-primary" ui-sref="contact-request.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span class="hidden-xs"  data-translate="testJhApp.extandedUser.home.createLabel">
-                        Create new Extanded User
+                    <span class="hidden-xs"  data-translate="testJhApp.contactRequest.home.createLabel">
+                        Create new Contact Request
                     </span>
                 </button>
             </div>
             <div class="col-xs-8 no-padding-right">
                 <form name="searchForm" class="form-inline">
                     <div class="input-group pull-right" >
-                        <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'testJhApp.extandedUser.home.search' | translate }}">
+                        <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'testJhApp.contactRequest.home.search' | translate }}">
                         <span  class="input-group-btn width-min" >
                             <button class="btn btn-info" ng-click="vm.search(vm.searchQuery)">
                                 <span class="glyphicon glyphicon-search"></span>
@@ -36,34 +36,44 @@
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="lastConnection"><span data-translate="testJhApp.extandedUser.lastConnection">Last Connection</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="user.login"><span data-translate="testJhApp.extandedUser.user">User</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="isAccepted"><span data-translate="testJhApp.contactRequest.isAccepted">Is Accepted</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="dateAccepted"><span data-translate="testJhApp.contactRequest.dateAccepted">Date Accepted</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="dateAsked"><span data-translate="testJhApp.contactRequest.dateAsked">Date Asked</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="message"><span data-translate="testJhApp.contactRequest.message">Message</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="receiver.id"><span data-translate="testJhApp.contactRequest.receiver">Receiver</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="sender.id"><span data-translate="testJhApp.contactRequest.sender">Sender</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="extandedUser in vm.extandedUsers track by extandedUser.id">
-                    <td><a ui-sref="extanded-user-detail({id:extandedUser.id})">{{extandedUser.id}}</a></td>
-                    <td>{{extandedUser.lastConnection | date:'medium'}}</td>
+                <tr ng-repeat="contactRequest in vm.contactRequests track by contactRequest.id">
+                    <td><a ui-sref="contact-request-detail({id:contactRequest.id})">{{contactRequest.id}}</a></td>
+                    <td>{{contactRequest.isAccepted}}</td>
+                    <td>{{contactRequest.dateAccepted | date:'medium'}}</td>
+                    <td>{{contactRequest.dateAsked | date:'medium'}}</td>
+                    <td>{{contactRequest.message}}</td>
                     <td>
-                        {{extandedUser.user.login}}
+                        <a ui-sref="extanded-user-detail({id:contactRequest.receiver.id})">{{contactRequest.receiver.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="extanded-user-detail({id:contactRequest.sender.id})">{{contactRequest.sender.id}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    ui-sref="extanded-user-detail({id:extandedUser.id})"
+                                    ui-sref="contact-request-detail({id:contactRequest.id})"
                                     class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="extanded-user.edit({id:extandedUser.id})"
+                                    ui-sref="contact-request.edit({id:contactRequest.id})"
                                     class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-pencil"></span>
                                 <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="extanded-user.delete({id:extandedUser.id})"
+                                    ui-sref="contact-request.delete({id:contactRequest.id})"
                                     class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
