@@ -1,6 +1,7 @@
 package io.nbe.test.service;
 
 import io.nbe.test.domain.ContactRequest;
+import io.nbe.test.domain.ExtandedUser;
 import io.nbe.test.repository.ContactRequestRepository;
 import io.nbe.test.repository.search.ContactRequestSearchRepository;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -33,12 +35,37 @@ public class ContactRequestService {
     @Inject
     private ContactRequestSearchRepository contactRequestSearchRepository;
 
+    @Inject
+    private ExtandedUserService extendUserService;
 
     public ContactRequest createRequest(ContactRequest request){
-        request.setDateAsked(ZonedDateTime.now());
-        
-        return null;
+        Optional<ExtandedUser> currentExtendedUser = extendUserService.getCurrentExtendedUser();
+        if(!request.getReceiver().equals(currentExtendedUser)){
+            request.setSender(currentExtendedUser.get());
+            if(!extendUserService.findFriends().contains(request.getReceiver())){
+                if(!contactRequestRepository.findAll().contains(request.getReceiver())){
+                    request.setDateAsked(ZonedDateTime.now());
+                    request.setDateAccepted(null);
+                    request.setIsAccepted(false);
+                    save(request);
+                }
+            }
+        }
+        return request;
     }
+
+    public ContactRequest acceptRequest(ContactRequest request){
+        request.setIsAccepted(true);
+        request.setDateAccepted(ZonedDateTime.now());
+        save(request);
+        return request;
+    }
+
+    public ContactRequest denyRequest(ContactRequest request){
+        delete(request.getId());
+        return request;
+    }
+
 
 
     /**

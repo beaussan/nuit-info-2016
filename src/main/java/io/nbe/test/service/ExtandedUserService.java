@@ -70,7 +70,7 @@ public class ExtandedUserService {
         return lsUsers;
     }
 
-    private Optional<ExtandedUser> getCurrentExtendedUser() {
+    public Optional<ExtandedUser> getCurrentExtendedUser() {
         return userService.getUserWithAuthoritiesByLogin(SecurityUtils.getCurrentUserLogin())
             .map(user -> extandedUserRepository.findOneByUser(user))
             .orElse(Optional.empty());
