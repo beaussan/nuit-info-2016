@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,7 +27,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class ContactRequestService {
 
     private final Logger log = LoggerFactory.getLogger(ContactRequestService.class);
-
+    
     @Inject
     private ContactRequestRepository contactRequestRepository;
 
@@ -83,11 +82,11 @@ public class ContactRequestService {
 
     /**
      *  Get all the contactRequests.
-     *
+     *  
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) 
     public Page<ContactRequest> findAll(Pageable pageable) {
         log.debug("Request to get all ContactRequests");
         Page<ContactRequest> result = contactRequestRepository.findAll(pageable);
@@ -100,7 +99,7 @@ public class ContactRequestService {
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) 
     public ContactRequest findOne(Long id) {
         log.debug("Request to get ContactRequest : {}", id);
         ContactRequest contactRequest = contactRequestRepository.findOne(id);

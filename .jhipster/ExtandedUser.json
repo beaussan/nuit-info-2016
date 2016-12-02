@@ -10,6 +10,18 @@
             "otherEntityRelationshipName": "extandedUser"
         },
         {
+            "relationshipType": "one-to-many",
+            "relationshipName": "friendRequests",
+            "otherEntityName": "contactRequest",
+            "otherEntityRelationshipName": "sender"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "friendRequestReceived",
+            "otherEntityName": "contactRequest",
+            "otherEntityRelationshipName": "receiver"
+        },
+        {
             "relationshipType": "many-to-many",
             "relationshipName": "messages",
             "otherEntityName": "conversation",
@@ -17,7 +29,12 @@
             "otherEntityRelationshipName": "members"
         }
     ],
-    "fields": [],
+    "fields": [
+        {
+            "fieldName": "lastConnection",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
     "changelogDate": "20161201190920",
     "entityTableName": "extanded_user",
     "dto": "no",

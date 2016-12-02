@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity ContactRequest.
+    -->
+    <changeSet id="20161201234606-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="receiver_id"
+                                 baseTableName="contact_request"
+                                 constraintName="fk_contact_request_receiver_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="extanded_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="sender_id"
+                                 baseTableName="contact_request"
+                                 constraintName="fk_contact_request_sender_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="extanded_user"/>
+
+    </changeSet>
+</databaseChangeLog>
